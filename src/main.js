@@ -3,6 +3,10 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+//按需加载element-ui
+import element from "@/element";
+Vue.use(element);
+
 Vue.config.productionTip = false;
 
 new Vue({
