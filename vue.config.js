@@ -71,7 +71,7 @@ module.exports = {
     hotOnly: false,
     proxy: {
       [process.env.VUE_APP_API]: {
-        target: process.env.VUE_API_DEV_TARGET, //API服务器的地址  http://www.web-jshtml.cn/api/v3
+        target: process.env.VUE_APP_TARGET, //http://www.web-jshtml.cn/productapi/token
         changeOrigin: true,
         pathRewrite: {
           [`^${process.env.VUE_APP_API}`]: "",
