@@ -7,6 +7,9 @@ import store from "./store";
 import element from "@/element";
 Vue.use(element);
 
+//全局element组件
+import "@/element/global";
+
 Vue.config.productionTip = false;
 
 new Vue({

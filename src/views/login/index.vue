@@ -16,6 +16,7 @@
         status-icon
         :rules="rules"
         :model="formData"
+        ref="loginForm"
       >
         <el-form-item label="邮箱" prop="email">
           <el-input v-model="formData.email" autocomplete="off" />
@@ -32,14 +33,17 @@
         </el-form-item>
         <el-form-item class="code" label="验证码" prop="code">
           <el-input v-model="formData.code" autocomplete="off" maxlength="6" />
-          <el-button type="success" @click="getCode">获取验证码</el-button>
+          <el-button :disabled="!allowGetCode" type="success" @click="getCode">
+            {{ codeTxt }}
+          </el-button>
         </el-form-item>
         <el-button
-          :disabled="true"
           style="width: 100%; margin-top: 30px"
           type="danger"
+          @click="submitForm('loginForm')"
+          :disabled="!sendEnd"
         >
-          登录
+          {{ nowTab === 0 ? "登录" : "注册" }}
         </el-button>
       </el-form>
     </div>
@@ -48,7 +52,7 @@
 
 <script>
 import * as until from "@u/validate";
-import { GetSms } from "@a/login";
+import { GetSms, UserRegister, UserLogin } from "@a/login";
 export default {
   name: "Login",
   data() {
@@ -81,7 +85,7 @@ export default {
     };
     let validateCode = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("请输入密码"));
+        callback(new Error("请输入验证码"));
       } else if (!until.validateCode(value)) {
         callback(new Error("验证码格式有误"));
       } else {
@@ -89,7 +93,16 @@ export default {
       }
     };
     return {
+      allowGetCode: true,
+      codeTxt:
+        Math.floor(Date.now() / 1000) < +localStorage.getItem("loginEndTime")
+          ? `${
+              localStorage.getItem("loginEndTime") -
+              Math.floor(Date.now() / 1000)
+            }s`
+          : "获取验证码",
       nowTab: 0,
+      sendEnd: false,
       tabs: [
         {
           title: "登录",
@@ -110,19 +123,107 @@ export default {
         psd2: [{ required: true, validator: validatePsd2, trigger: "blur" }],
         code: [{ required: true, validator: validateCode, trigger: "blur" }],
       },
+      timers: [],
     };
   },
   methods: {
     switchTab(i) {
       this.nowTab = i;
+      this.$refs.loginForm.resetFields();
+      this.sendEnd = false;
     },
     getCode() {
+      if (this.formData.email === "") {
+        this.$message.error("请先输入邮箱");
+        return;
+      }
+      this.codeTxt = "发送中...";
+      this.allowGetCode = false;
       GetSms({ username: this.formData.email, module: "register" }).then(
         (res) => {
-          console.log(res);
+          localStorage.setItem(
+            "loginEndTime",
+            Math.floor(Date.now() / 1000) + 10
+          );
+          let start = 10;
+          let timer = setInterval(() => {
+            if (start <= 1) {
+              this.allowGetCode = true;
+              this.codeTxt = "获取验证码";
+              clearInterval(timer);
+              return;
+            }
+            start--;
+            this.codeTxt = `${start}s`;
+          }, 1000);
+          this.timers.push(timer);
+          this.sendEnd = true;
+          this.$message({
+            showClose: true,
+            message: res.data.message,
+            type: "success",
+          });
+          console.log(res.data.message);
         }
       );
     },
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          let formData = {
+            username: this.formData.email,
+            password: this.formData.psd,
+            code: this.formData.code,
+          };
+          if (this.nowTab === 1) {
+            //注册
+            UserRegister(formData).then((res) => {
+              if (res.data.resCode === 0) {
+                this.$message({
+                  showClose: true,
+                  message: res.data.message,
+                  type: "success",
+                });
+                this.switchTab(0);
+              }
+            });
+          } else {
+            UserLogin(formData).then((res) => {
+              if (res.data.resCode === 0) {
+                console.log("登录成功");
+              }
+            });
+          }
+        } else {
+          return false;
+        }
+      });
+    },
+  },
+  created() {
+    let nowTime = Math.floor(Date.now() / 1000);
+    let endTime = +localStorage.getItem("loginEndTime");
+    let start = endTime - nowTime;
+    if (nowTime < endTime) {
+      this.allowGetCode = false;
+      let timer = setInterval(() => {
+        if (start <= 1) {
+          this.allowGetCode = true;
+          this.codeTxt = "获取验证码";
+          clearInterval(timer);
+          return;
+        }
+        start--;
+        this.codeTxt = `${start}s`;
+      }, 1000);
+      this.timers.push(timer);
+    }
+  },
+  beforeDestroy() {
+    this.timers.forEach((item) => {
+      clearInterval(item);
+    });
+    this.timers.length = 0;
   },
 };
 </script>
@@ -162,8 +263,11 @@ export default {
   /deep/ .el-input__suffix {
     display: none;
   }
-  button {
+  /deep/ .el-button {
     margin: 0 0 0 20px;
+    width: 120px;
+    box-sizing: content-box;
+    text-align: center;
   }
 }
 /deep/ .el-form--label-top .el-form-item__label {
