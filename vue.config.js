@@ -47,11 +47,11 @@ module.exports = {
     // 开启 CSS source maps?
     sourceMap: false,
     // css预设器配置项
-    loaderOptions: {
-      scss: {
-        prependData: `@import "./src/styles/main.scss";`,
-      },
-    },
+    // loaderOptions: {
+    //   scss: {
+    //     prependData: `@import "./src/styles/main.scss";`,
+    //   },
+    // },
     requireModuleExtension: true,
   },
   // use thread-loader for babel & TS in production build

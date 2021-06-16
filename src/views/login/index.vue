@@ -112,8 +112,8 @@ export default {
         },
       ],
       formData: {
-        email: "",
-        psd: "",
+        email: "88948@qq.com",
+        psd: "admin123",
         psd2: "",
         code: "",
       },
@@ -184,13 +184,19 @@ export default {
                   message: res.data.message,
                   type: "success",
                 });
+                this.timers.forEach((item) => {
+                  clearInterval(item);
+                });
+                this.timers.length = 0;
                 this.switchTab(0);
+                this.allowGetCode = true;
+                this.codeTxt = "获取验证码";
               }
             });
           } else {
             UserLogin(formData).then((res) => {
               if (res.data.resCode === 0) {
-                console.log("登录成功");
+                this.$router.push({ name: "Home" });
               }
             });
           }

@@ -1,0 +1,29 @@
+//重写element样式
+@import "./config.scss";
+.layout-aside {
+    .el-submenu__title {
+        padding: 0 $asideCloseWidth/2 - 12 !important;
+    }
+    .el-menu-item {
+        padding:  0 $asideCloseWidth/2 - 12 !important;
+    }
+    .el-tooltip {
+        padding: 0 $asideCloseWidth/2 - 12 !important;
+    }
+    .el-menu--collapse {
+        width: $asideCloseWidth;
+    }
+    .el-menu {
+        border-right: none;
+        background-color: $bgColor;
+        .el-menu--inline {
+            background-color: $bgColor2;
+        }
+    }
+    .el-submenu__title:hover {
+        background-color: $hoverColor1;
+    }
+    .el-menu-item:focus, .el-menu-item:hover {
+        background-color: $hoverColor2;
+    }
+}

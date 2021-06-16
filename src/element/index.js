@@ -1,7 +1,16 @@
 /**
  * 按需加载element-ui
  */
-import { Form, Input, FormItem, Button } from "element-ui";
+import {
+  Form,
+  Input,
+  FormItem,
+  Button,
+  Menu,
+  Submenu,
+  MenuItemGroup,
+  MenuItem,
+} from "element-ui";
 
 const element = {
   install(Vue) {
@@ -9,6 +18,10 @@ const element = {
     Vue.use(Input);
     Vue.use(FormItem);
     Vue.use(Button);
+    Vue.use(Menu);
+    Vue.use(Submenu);
+    Vue.use(MenuItemGroup);
+    Vue.use(MenuItem);
   },
 };
 
