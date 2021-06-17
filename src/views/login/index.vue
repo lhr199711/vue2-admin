@@ -196,7 +196,7 @@ export default {
           } else {
             UserLogin(formData).then((res) => {
               if (res.data.resCode === 0) {
-                this.$router.push({ name: "Home" });
+                this.$router.push({ name: "Index" });
               }
             });
           }

@@ -26,4 +26,7 @@
     .el-menu-item:focus, .el-menu-item:hover {
         background-color: $hoverColor2;
     }
+    .el-menu-item-group {
+        .el-menu-item-group__title {display: none;}
+    }
 }

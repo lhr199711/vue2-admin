@@ -1,16 +1,18 @@
 <template>
   <div class="layout-wraper">
     <div class="layout-aside">
-      <layout-aside :isCollapse.sync="isCollapse" />
+      <layout-aside :isCollapse.sync="isCollapse" :routes="routes" />
     </div>
     <div class="layout-container tansition">
       <div class="layout-header">
         <layout-header @toggleCollapse="toggleCollapse" />
       </div>
       <div class="layout-main">
-        <keep-alive>
-          <router-view></router-view>
-        </keep-alive>
+        <div class="main-container">
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
+        </div>
       </div>
     </div>
   </div>
@@ -27,12 +29,16 @@ export default {
   data() {
     return {
       isCollapse: false,
+      routes: [],
     };
   },
   methods: {
     toggleCollapse() {
       this.isCollapse ? (this.isCollapse = false) : (this.isCollapse = true);
     },
+  },
+  created() {
+    this.routes = this.$router.options.routes;
   },
 };
 </script>
@@ -51,6 +57,11 @@ export default {
   background: #eee;
   border: 16px solid #eee;
   box-sizing: border-box;
+  .main-container {
+    background: #fff;
+    height: 100%;
+    overflow: auto;
+  }
 }
 .layout-aside {
   display: inline-block;
