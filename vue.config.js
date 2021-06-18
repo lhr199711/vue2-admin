@@ -47,11 +47,11 @@ module.exports = {
     // 开启 CSS source maps?
     sourceMap: false,
     // css预设器配置项
-    loaderOptions: {
-      scss: {
-        prependData: `@import "./src/styles/main.scss";`,
-      },
-    },
+    // loaderOptions: {
+    //   scss: {
+    //     prependData: `@import "./src/styles/main.scss";`,
+    //   },
+    // },
     requireModuleExtension: true,
   },
   // use thread-loader for babel & TS in production build
@@ -71,7 +71,7 @@ module.exports = {
     hotOnly: false,
     proxy: {
       [process.env.VUE_APP_API]: {
-        target: process.env.VUE_API_DEV_TARGET, //API服务器的地址  http://www.web-jshtml.cn/api/v3
+        target: process.env.VUE_APP_TARGET, //http://www.web-jshtml.cn/productapi/token
         changeOrigin: true,
         pathRewrite: {
           [`^${process.env.VUE_APP_API}`]: "",
