@@ -28,6 +28,7 @@ const routes = [
     name: "Console",
     meta: {
       name: "控制台",
+      iconName: "console",
     },
     component: Layout,
     children: [
@@ -46,6 +47,7 @@ const routes = [
     name: "Info",
     meta: {
       name: "信息管理",
+      iconName: "info-manage",
     },
     component: Layout,
     children: [
@@ -72,6 +74,7 @@ const routes = [
     name: "User",
     meta: {
       name: "用户管理",
+      iconName: "user-manage",
     },
     component: Layout,
     children: [

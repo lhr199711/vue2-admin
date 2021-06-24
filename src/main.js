@@ -5,6 +5,8 @@ import store from "./store";
 
 import "@/styles/main.scss"; // global css
 
+import "@/assets/icons/index.js";
+
 import Directives from "@/directives";
 Vue.use(Directives);
 
