@@ -5,9 +5,11 @@ import store from "./store";
 
 import "@/styles/main.scss"; // global css
 
-import "@/assets/icons/index.js";
+import "@/assets/icons/index.js"; //svg-icon全局组件
 
-import Directives from "@/directives";
+import "@/router/permission"; //全局路由守卫
+
+import Directives from "@/directives"; //全局指令
 Vue.use(Directives);
 
 //按需加载element-ui

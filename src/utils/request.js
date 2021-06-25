@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Message } from "element-ui";
+import * as auth from "@u/auth";
 
 const service = axios.create({
   baseURL: process.env.VUE_APP_API,
@@ -9,8 +10,11 @@ const service = axios.create({
 // 添加请求拦截器
 service.interceptors.request.use(
   function (config) {
-    // console.log(config)
-    // 在发送请求之前做些什么
+    config.headers["Tokey"] = auth.getToKen();
+    config.headers["UserName"] = auth.getUserName();
+    // if (auth.getToKen()) {
+    //   config.headers["X-Authorization"] = "Bearer " + auth.getToKen(); // 让每个请求携带自定义token 请根据实际情况自行修改
+    // }
     return config;
   },
   function (error) {

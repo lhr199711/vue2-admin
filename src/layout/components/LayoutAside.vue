@@ -55,6 +55,12 @@ export default {
       sessionStorage.setItem("defaultActiveUrl", key);
     },
   },
+  watch: {
+    "$route.path": function (newV) {
+      this.defaultActiveUrl = newV;
+      sessionStorage.setItem("defaultActiveUrl", newV);
+    },
+  },
 };
 </script>
 

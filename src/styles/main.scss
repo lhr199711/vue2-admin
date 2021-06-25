@@ -1,2 +1,12 @@
 @import "./normalize.scss";
 @import "./element.scss";
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pointer {
+    cursor: pointer;
+}

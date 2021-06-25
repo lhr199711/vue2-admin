@@ -4,9 +4,7 @@
       <layout-aside :isCollapse.sync="isCollapse" :routes="routes" />
     </div>
     <div class="layout-container tansition">
-      <div class="layout-header">
-        <layout-header @toggleCollapse="toggleCollapse" />
-      </div>
+      <layout-header @toggleCollapse="toggleCollapse" />
       <div class="layout-main">
         <div class="main-container">
           <keep-alive>
@@ -49,9 +47,7 @@ export default {
   height: 100vh;
   display: flex;
 }
-.layout-header {
-  height: $headerHeight;
-}
+
 .layout-main {
   height: calc(100vh - #{$headerHeight});
   background: #eee;

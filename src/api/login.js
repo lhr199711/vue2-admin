@@ -26,3 +26,12 @@ export function UserLogin(data) {
     data,
   });
 }
+
+/** 退出登录 */
+export function Logout(data = {}) {
+  return service.request({
+    method: "post",
+    url: "/logout/",
+    data,
+  });
+}
