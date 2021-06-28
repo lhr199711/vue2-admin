@@ -7,7 +7,7 @@
     :collapse="isCollapse"
     text-color="#fff"
     :router="true"
-    :collapse-transition="true"
+    :collapse-transition="false"
   >
     <template v-for="(item, i) in routes">
       <el-submenu v-if="!item.hidden" :index="item.path" :key="i">
