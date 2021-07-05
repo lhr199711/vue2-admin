@@ -88,6 +88,25 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/threeJs",
+    name: "ThreeJs",
+    meta: {
+      name: "Three.js",
+      iconName: "user-manage",
+    },
+    component: Layout,
+    children: [
+      {
+        path: "/demo1",
+        name: "Demo1",
+        meta: {
+          name: "demo1",
+        },
+        component: () => import("@/views/threeJs/demo1"),
+      },
+    ],
+  },
 ];
 
 const router = new VueRouter({

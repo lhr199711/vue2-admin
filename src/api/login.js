@@ -35,3 +35,12 @@ export function Logout(data = {}) {
     data,
   });
 }
+
+/** 测试mock数据 */
+export function GetList(data = {}) {
+  return service.request({
+    method: "post",
+    url: "/getListHarry/",
+    data,
+  });
+}
