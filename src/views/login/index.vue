@@ -52,7 +52,7 @@
 
 <script>
 import * as until from "@u/validate";
-import { GetSms, UserRegister, UserLogin } from "@a/login";
+import { GetSms, UserRegister } from "@a/login";
 export default {
   name: "Login",
   data() {
@@ -194,10 +194,8 @@ export default {
               }
             });
           } else {
-            UserLogin(formData).then((res) => {
-              if (res.data.resCode === 0) {
-                this.$router.push({ name: "Index" });
-              }
+            this.$store.dispatch("user/login", formData).then((res) => {
+              this.$router.push({ name: "Index" });
             });
           }
         } else {
@@ -230,6 +228,11 @@ export default {
       clearInterval(item);
     });
     this.timers.length = 0;
+  },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.formData.code = "";
+    });
   },
 };
 </script>

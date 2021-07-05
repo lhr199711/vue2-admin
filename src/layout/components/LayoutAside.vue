@@ -7,11 +7,15 @@
     :collapse="isCollapse"
     text-color="#fff"
     :router="true"
+    :collapse-transition="false"
   >
     <template v-for="(item, i) in routes">
       <el-submenu v-if="!item.hidden" :index="item.path" :key="i">
         <template slot="title">
-          <i class="el-icon-location"></i>
+          <svg-icon
+            class="el-icon-test"
+            :icon-class="item.meta.iconName"
+          ></svg-icon>
           <span slot="title">{{ item.meta.name }}</span>
         </template>
         <el-menu-item-group v-if="item.children">
@@ -51,6 +55,12 @@ export default {
       sessionStorage.setItem("defaultActiveUrl", key);
     },
   },
+  watch: {
+    "$route.path": function (newV) {
+      this.defaultActiveUrl = newV;
+      sessionStorage.setItem("defaultActiveUrl", newV);
+    },
+  },
 };
 </script>
 
@@ -59,5 +69,11 @@ export default {
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: $asideOpenWidth;
   min-height: 400px;
+}
+.el-icon-test {
+  width: calc(($asideCloseWidth - 32) / 2);
+  text-align: center;
+  font-size: 20px;
+  margin-right: 6px;
 }
 </style>

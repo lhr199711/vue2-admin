@@ -5,7 +5,16 @@ import store from "./store";
 
 import "@/styles/main.scss"; // global css
 
-import Directives from "@/directives";
+import "@/assets/icons/index.js"; //svg-icon全局组件
+
+import "@/router/permission"; //全局路由守卫
+
+import { mockXHR } from "../mock";
+if (process.env.NODE_ENV == "development") {
+  mockXHR();
+}
+
+import Directives from "@/directives"; //全局指令
 Vue.use(Directives);
 
 //按需加载element-ui

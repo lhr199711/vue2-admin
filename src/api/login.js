@@ -26,3 +26,21 @@ export function UserLogin(data) {
     data,
   });
 }
+
+/** 退出登录 */
+export function Logout(data = {}) {
+  return service.request({
+    method: "post",
+    url: "/logout/",
+    data,
+  });
+}
+
+/** 测试mock数据 */
+export function GetList(data = {}) {
+  return service.request({
+    method: "post",
+    url: "/getListHarry/",
+    data,
+  });
+}

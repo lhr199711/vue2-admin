@@ -10,6 +10,12 @@ import {
   Submenu,
   MenuItemGroup,
   MenuItem,
+  Select,
+  Option,
+  DatePicker,
+  Table,
+  TableColumn,
+  Pagination,
 } from "element-ui";
 
 const element = {
@@ -22,6 +28,12 @@ const element = {
     Vue.use(Submenu);
     Vue.use(MenuItemGroup);
     Vue.use(MenuItem);
+    Vue.use(Select);
+    Vue.use(Option);
+    Vue.use(DatePicker);
+    Vue.use(Table);
+    Vue.use(TableColumn);
+    Vue.use(Pagination);
   },
 };
 

@@ -1,12 +1,10 @@
 <template>
-  <div class="layout-wraper">
+  <div class="layout-wraper" :class="isCollapse ? 'close' : 'open'">
     <div class="layout-aside">
       <layout-aside :isCollapse.sync="isCollapse" :routes="routes" />
     </div>
     <div class="layout-container tansition">
-      <div class="layout-header">
-        <layout-header @toggleCollapse="toggleCollapse" />
-      </div>
+      <layout-header @toggleCollapse="toggleCollapse" />
       <div class="layout-main">
         <div class="main-container">
           <keep-alive>
@@ -47,11 +45,8 @@ export default {
 @import "@/styles/config.scss";
 .layout-wraper {
   height: 100vh;
-  display: flex;
 }
-.layout-header {
-  height: $headerHeight;
-}
+
 .layout-main {
   height: calc(100vh - #{$headerHeight});
   background: #eee;
@@ -60,14 +55,31 @@ export default {
   .main-container {
     background: #fff;
     height: 100%;
-    overflow: auto;
   }
 }
 .layout-aside {
-  display: inline-block;
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  height: 100%;
   background-color: $bgColor;
+  transition: width 0.3s;
+}
+.open .layout-aside {
+  width: $asideOpenWidth;
+}
+.close .layout-aside {
+  width: $asideCloseWidth;
 }
 .layout-container {
-  flex: 1;
+  transition: margin-left 0.3s;
+}
+.open .layout-container {
+  margin-left: $asideOpenWidth;
+}
+.close .layout-container {
+  margin-left: $asideCloseWidth;
 }
 </style>
