@@ -1,3 +1,10 @@
+/*
+ * @Descripttion :
+ * @Author       : Harry
+ * @Date         : 2021-05-26 16:24:25
+ * @LastEditors  : Harry
+ * @LastEditTime : 2021-07-26 09:32:39
+ */
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
@@ -31,3 +38,5 @@ new Vue({
   store,
   render: (h) => h(App),
 }).$mount("#app");
+
+// 新加的注释
